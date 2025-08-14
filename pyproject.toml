@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cryptolib"
+version = "0.1.0"
+description = "Educational cryptography library (A–Z classical ciphers, math utils, toy RSA/DH) with safe wrappers & attacks. Not for production."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["cryptography>=42.0", "pytest>=7.4"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
