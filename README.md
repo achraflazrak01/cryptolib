@@ -5,7 +5,7 @@ Educational cryptography library for learning:
 - Math utils (my own implementations): `egcd`, `modinv`, `modexp`
 - Attacks: Caesar χ², Vigenère (Kasiski/IOC), Hill known-plaintext, OTP two-time, ECB pattern, CTR nonce-reuse
 - Modern (safe wrappers): AES-GCM, SHA-256, X25519 (ECDH), RSA-OAEP, Ed25519
-
+- Oracle-based experiments (IND-CPA/CCA, UF-CMA) and UML report
 > **Disclaimer:** For education only. Do not use in production.
 
 ## Quickstart
