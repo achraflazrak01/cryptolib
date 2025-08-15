@@ -40,6 +40,8 @@ def crack(ciphertext: str) -> Tuple[int, str]:
     over all 26 possible shifts.
     """
     c = _clean(ciphertext)
+    if not c:
+        return 0, ""
     best_k, best_score, best_pt = 0, float("inf"), ""
     for k in range(26):
         pt = _shift(c, -k) # try decrypting with shift k
