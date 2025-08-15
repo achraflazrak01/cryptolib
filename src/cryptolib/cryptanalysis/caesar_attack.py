@@ -1,4 +1,5 @@
 from typing import Tuple
+from cryptolib.exceptions import ValidationError
 
 ALPH = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 A0 = ord("A")
@@ -41,7 +42,7 @@ def crack(ciphertext: str) -> Tuple[int, str]:
     """
     c = _clean(ciphertext)
     if not c:
-        return 0, ""
+        raise ValidationError("No A–Z letters in ciphertext to analyze")
     best_k, best_score, best_pt = 0, float("inf"), ""
     for k in range(26):
         pt = _shift(c, -k) # try decrypting with shift k

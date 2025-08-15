@@ -1,5 +1,7 @@
+import pytest
 from cryptolib.classical.caesar import encrypt
 from cryptolib.cryptanalysis.caesar_attack import crack
+from cryptolib.exceptions import ValidationError
 
 EN_TEXT = (
     "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG "
@@ -16,3 +18,6 @@ def test_caesar_crack_recovers_key():
         # plaintext is normalized A-Z
         assert pt.startswith("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG")
         
+def test_caesar_crack_raises_on_empty():
+    with pytest.raises(ValidationError):
+        crack(" 123 !@# ")
