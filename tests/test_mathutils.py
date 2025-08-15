@@ -16,6 +16,7 @@ def test_modinv_basic_and_failure():
 def test_modexp_basics():
     assert modexp(13, 11, 19) == 2       # sanity vector
     assert modexp(123456789, 0, 97) == 1 # a^0 = 1 (mod m)
+    assert modexp(3, 15, 1) == 0         # b^exp = 0 (mod 1)
     # consistency with Python's pow(a, e, m) for a few values
     for (a, e, m) in [(5, 117, 19), (42, 73, 101), (-7, 9, 26)]:
         assert modexp(a, e, m) == pow(a, e, m)
