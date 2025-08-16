@@ -1,5 +1,4 @@
 from cryptolib.exceptions import ValidationError
-from typing import List
 
 ALPH_NO_J = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
 
@@ -34,7 +33,7 @@ def loc_map(square: str) -> dict[str, tuple[int, int]]:
     """Map each letter in a 25-char row-major Playfair square to its (row, col) coords (0..4)."""
     return {square[i]: (i // 5, i % 5) for i in range(25)}
 
-def prepare_pairs(text: str) -> List[tuple[str, str]]:
+def prepare_pairs(text: str) -> list[tuple[str, str]]:
     """
     A-Z only, J -> I. Split into digraphs; if a pair has same letters, insert 'X';
     if last is single, pad with 'X'.
