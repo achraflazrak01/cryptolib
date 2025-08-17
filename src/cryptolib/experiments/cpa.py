@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptolib.cryptanalysis.ecb_pattern import has_repeated_blocks
 from cryptolib.modern.aead.aes_gcm import encrypt as gcm_encrypt
+from cryptolib.cryptanalysis.ctr_nonce_reuse import aes_ctr_encrypt
 
 @dataclass(frozen=True)
 class CPAResult:
@@ -49,5 +50,28 @@ def run_trial_gcm() -> int:
     return int(guess == b)
 
 def run_trial_ctr_fixed_nonce() -> int:
-    """(Implemented on Day 3)"""
-    raise NotImplementedError("Week-2 Day 3: implement CTR fixed-nonce CPA trial")
+    """
+    One IND-CPA trial for AES-CTR with a FIXED nonce.
+    IND-CPA allows encryption-oracle queries. Because CTR+fixed nonce is
+    deterministic, the attacker can encrypt both candidates via the oracle
+    and compare to the challenge → wins ~1.0.
+    Returns 1 if attacker wins; else 0.
+    """
+    key = os.urandom(16)
+    nonce = os.urandom(16)   # fixed within the trial
+    
+    # Oracle the attacker can call (same key+nonce every time)
+    def Enc(m: bytes) -> bytes:
+        return aes_ctr_encrypt(key, nonce, m)
+    
+    m0 = (b"A" * 16) * 4
+    m1 = os.urandom(len(m0))
+    
+    b = os.urandom(1)[0] & 1
+    c = Enc(m0 if b == 0 else m1)
+    
+    # Attacker query: encrypt both candidates and compare
+    c0 = Enc(m0)
+    c1 = Enc(m1)
+    guess = 0 if c == c0 else 1
+    return int(guess == b)
