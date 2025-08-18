@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "ciphertext",
+        "cryptolib",
         "encryptor",
-        "primality"
+        "primality",
+        "urandom"
     ]
 }
